@@ -8,7 +8,12 @@
 import Foundation
 import UIKit
 
-class MainCoordinator: Coordinator {
+final class MainCoordinator: Coordinator {
+    
+    struct Constants {
+        static let storyboardName = "Main"
+    }
+    
     var children: [Coordinator] = []
     
     var navigationController: UINavigationController
@@ -18,7 +23,7 @@ class MainCoordinator: Coordinator {
     }
     
     func start() {
-        guard let vc = HomeViewController.instantiate(from: "Main") else {
+        guard let vc = HomeViewController.instantiate(from: Constants.storyboardName) else {
             return
         }
         vc.coordinator = self
