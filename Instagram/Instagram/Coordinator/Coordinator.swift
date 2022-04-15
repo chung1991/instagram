@@ -14,3 +14,12 @@ protocol Coordinator {
     
     func start()
 }
+
+class UnusedCoordinator: Coordinator {
+    var children: [Coordinator] = []
+    
+    var navigationController: UINavigationController = UINavigationController()
+    
+    func start() {
+    }
+}

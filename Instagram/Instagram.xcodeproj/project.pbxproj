@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C656D306280942020077CC75 /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = C656D305280942020077CC75 /* Logging */; };
 		C6F9386428028DA600833DBF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F9386328028DA600833DBF /* AppDelegate.swift */; };
 		C6F9386D28028DA900833DBF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C6F9386C28028DA900833DBF /* Assets.xcassets */; };
 		C6F9387028028DA900833DBF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6F9386E28028DA900833DBF /* LaunchScreen.storyboard */; };
@@ -68,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C656D306280942020077CC75 /* Logging in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,6 +219,9 @@
 			dependencies = (
 			);
 			name = Instagram;
+			packageProductDependencies = (
+				C656D305280942020077CC75 /* Logging */,
+			);
 			productName = Instagram;
 			productReference = C6F9386028028DA600833DBF /* Instagram.app */;
 			productType = "com.apple.product-type.application";
@@ -289,6 +294,9 @@
 				Base,
 			);
 			mainGroup = C6F9385728028DA600833DBF;
+			packageReferences = (
+				C656D304280942020077CC75 /* XCRemoteSwiftPackageReference "swift-log" */,
+			);
 			productRefGroup = C6F9386128028DA600833DBF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -670,6 +678,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C656D304280942020077CC75 /* XCRemoteSwiftPackageReference "swift-log" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-log.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C656D305280942020077CC75 /* Logging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C656D304280942020077CC75 /* XCRemoteSwiftPackageReference "swift-log" */;
+			productName = Logging;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C6F9385828028DA600833DBF /* Project object */;
 }

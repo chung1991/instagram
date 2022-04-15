@@ -6,21 +6,39 @@
 //
 
 import UIKit
+import Logging
+
+let logger = Logger(label: Bundle.main.bundleIdentifier ?? "Default Logger")
+
+func isRunningUnitTests() -> Bool {
+    let env = ProcessInfo.processInfo.environment
+    if let injectBundle = env["XCTestBundlePath"] {
+        return NSString(string: injectBundle).pathExtension == "xctest"
+    }
+    return false
+}
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var coordinator: Coordinator?
+    lazy var coordinator: Coordinator = injectCoordinator()
+    
+    private func injectCoordinator() -> Coordinator {
+        if isRunningUnitTests() {
+            logger.info("Injecting Unit Test coordinator")
+            return UnusedCoordinator()
+        } else {
+            logger.info("Injecting Main coordinator")
+            return MainCoordinator(navigationController: UINavigationController())
+        }
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        
-        let nvc = UINavigationController()
-        coordinator = MainCoordinator(navigationController: nvc)
-        window?.rootViewController = nvc
-        coordinator?.start()
+        window?.rootViewController = coordinator.navigationController
+        coordinator.start()
         return true
     }
 

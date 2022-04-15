@@ -6,15 +6,21 @@
 //
 
 import XCTest
+@testable import Instagram
 
 class HomeViewControllerTests: XCTestCase {
-
+    var vc: HomeViewController!
+    
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        vc = HomeViewController()
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        
+    }
+    
+    func testViewDidLoad() {
+        
     }
 
 }
