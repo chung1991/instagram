@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct AvatarCellViewModel {
+struct PostTopCellViewModel {
     let dateService = DateService()
     func getDateDisplay(_ date1: Date, _ date2: Date) -> String {
         let gap = dateService.getGapBetween(date1, date2)
@@ -16,8 +16,8 @@ struct AvatarCellViewModel {
     }
 }
 
-class AvatarCell: UITableViewCell {
-    static let id = "AvatarCell"
+class PostTopCell: UITableViewCell {
+    static let id = "PostTopCell"
     
     lazy var avatarImageView: UIImageView = {
         return UIImageView()
@@ -31,7 +31,7 @@ class AvatarCell: UITableViewCell {
         return UILabel()
     }()
     
-    lazy var viewModel = AvatarCellViewModel()
+    lazy var viewModel = PostTopCellViewModel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

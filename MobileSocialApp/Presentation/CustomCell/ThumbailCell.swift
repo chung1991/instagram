@@ -1,5 +1,5 @@
 //
-//  PhotoCell.swift
+//  ThumbailCell.swift
 //  MobileSocialApp
 //
 //  Created by Chung EXI-Nguyen on 6/22/22.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class PhotoCellViewModel {
+class ThumbailCellViewModel {
     let downloadService = DownloadService.shared
     
     func downloadImage(_ userPhoto: Photo, _ completion: @escaping (UIImage?)->Void) {
@@ -16,8 +16,8 @@ class PhotoCellViewModel {
     }
 }
 
-class PhotoCell: UITableViewCell {
-    static let id = "PhotoCell"
+class ThumbailCell: UITableViewCell {
+    static let id = "ThumbailCell"
     let stackView: UIStackView = {
         return UIStackView()
     }()
@@ -51,7 +51,7 @@ class PhotoCell: UITableViewCell {
     }()
     
     var userPost: UserPost?
-    var viewModel = PhotoCellViewModel()
+    var viewModel = ThumbailCellViewModel()
     let mainQueue = DispatchQueue.main
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

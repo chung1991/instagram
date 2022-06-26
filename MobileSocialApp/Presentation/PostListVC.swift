@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  PostListVC.swift
 //  MobileSocialApp
 //
 //  Created by Chung EXI-Nguyen on 6/19/22.
@@ -38,7 +38,7 @@ class ViewModel {
     }
 }
 
-class ViewController: UIViewController {
+class PostListVC: UIViewController {
 
     lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -64,8 +64,8 @@ class ViewController: UIViewController {
         
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
-        tableView.register(PhotoCell.self, forCellReuseIdentifier: PhotoCell.id)
-        tableView.register(AvatarCell.self, forCellReuseIdentifier: AvatarCell.id)
+        tableView.register(ThumbailCell.self, forCellReuseIdentifier: ThumbailCell.id)
+        tableView.register(PostTopCell.self, forCellReuseIdentifier: PostTopCell.id)
         tableView.register(CaptionCell.self, forCellReuseIdentifier: CaptionCell.id)
         tableView.register(ButtonCell.self, forCellReuseIdentifier: ButtonCell.id)
         tableView.register(ClearFooter.self, forHeaderFooterViewReuseIdentifier: ClearFooter.id)
@@ -90,7 +90,7 @@ class ViewController: UIViewController {
 
 }
 
-extension ViewController: UITableViewDataSource, UITableViewDelegate {
+extension PostListVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         let section = FeedRow(rawValue: section % FeedRow.allCases.count)
@@ -135,7 +135,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         let userPost = viewModel.userPost[indexPath.section / FeedRow.allCases.count]
         switch section {
         case .AVATAR:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: AvatarCell.id, for: indexPath) as? AvatarCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: PostTopCell.id, for: indexPath) as? PostTopCell else {
                 return UITableViewCell()
             }
             cell.configure(userPost)
@@ -147,7 +147,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             cell.configure(userPost)
             return cell
         case .PHOTO:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: PhotoCell.id, for: indexPath) as? PhotoCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: ThumbailCell.id, for: indexPath) as? ThumbailCell else {
                 return UITableViewCell()
             }
             cell.configure(userPost)
@@ -164,7 +164,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-extension ViewController: ViewModelDelegate {
+extension PostListVC: ViewModelDelegate {
     func userPostUpdated() {
         mainQueue.async { [weak self] in
             self?.tableView.reloadData()
