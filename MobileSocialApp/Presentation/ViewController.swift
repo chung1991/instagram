@@ -7,14 +7,6 @@
 
 import UIKit
 
-// features:
-// 1. show photo by 1,2,3,4,5,5+
-
-// section 1: avatar: 100
-// section 2: caption: max 200
-// section 3: photo: 300
-// section 4: likes buttons
-
 enum FeedRow: Int, CaseIterable {
     case AVATAR
     case CAPTION

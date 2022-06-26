@@ -114,12 +114,6 @@ class PhotoCell: UITableViewCell {
             stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0.0),
             stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0.0)
         ])
-        
-//        NSLayoutConstraint.activate([
-//            stackView1.heightAnchor.constraint(equalTo: contentView.widthAnchor),
-//            stackView2.heightAnchor.constraint(equalTo: contentView.widthAnchor)
-//        ])
-        
     }
     
     func configure(_ userPost: UserPost) {
