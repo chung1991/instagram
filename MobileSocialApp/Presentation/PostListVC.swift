@@ -5,20 +5,33 @@
 //  Created by Chung EXI-Nguyen on 6/19/22.
 //
 
+// features
+// load 20 post initially
+// scroll to load more
+
+
+
+
+// 2
+// 4
+// 1
+// 3
+
+
 import UIKit
 
-enum FeedRow: Int, CaseIterable {
-    case AVATAR
+enum PostRow: Int, CaseIterable {
+    case TOP
     case CAPTION
     case PHOTO
     case BUTTON
 }
 
-protocol ViewModelDelegate: AnyObject {
+protocol PostListViewModelDelegate: AnyObject {
     func userPostUpdated()
 }
 
-class ViewModel {
+class PostListViewModel {
     let globalQueue = DispatchQueue.global()
     var userPost: [UserPost] = [] {
         didSet {
@@ -26,7 +39,7 @@ class ViewModel {
         }
     }
     var postService = PostService()
-    weak var delegate: ViewModelDelegate?
+    weak var delegate: PostListViewModelDelegate?
     
     func load() {
         let now = Date()
@@ -38,15 +51,20 @@ class ViewModel {
     }
 }
 
+protocol PostListVCDelegate: AnyObject {
+    func didTapPhotoDetails(_ userPost: UserPost)
+}
+
 class PostListVC: UIViewController {
 
     lazy var tableView: UITableView = {
-        let tableView = UITableView()
+        let tableView = CustomTableView()
         return tableView
     }()
     
-    let viewModel = ViewModel()
+    let viewModel = PostListViewModel()
     let mainQueue = DispatchQueue.main
+    weak var delegate: PostListVCDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,20 +73,14 @@ class PostListVC: UIViewController {
         setupDelegates()
         viewModel.load()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
+        navigationController?.title = nil
+    }
 
     func setupViews() {
-        tableView.backgroundColor = UIColor(displayP3Red: 160.0/255.0,
-                                       green: 164.0/255.0,
-                                       blue: 166.0/255.0,
-                                       alpha: 1.0)
-        
-        tableView.allowsSelection = false
-        tableView.separatorStyle = .none
-        tableView.register(ThumbailCell.self, forCellReuseIdentifier: ThumbailCell.id)
-        tableView.register(PostTopCell.self, forCellReuseIdentifier: PostTopCell.id)
-        tableView.register(CaptionCell.self, forCellReuseIdentifier: CaptionCell.id)
-        tableView.register(ButtonCell.self, forCellReuseIdentifier: ButtonCell.id)
-        tableView.register(ClearFooter.self, forHeaderFooterViewReuseIdentifier: ClearFooter.id)
         view.addSubview(tableView)
     }
     
@@ -93,7 +105,7 @@ class PostListVC: UIViewController {
 extension PostListVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        let section = FeedRow(rawValue: section % FeedRow.allCases.count)
+        let section = PostRow(rawValue: section % PostRow.allCases.count)
         switch section {
         case .BUTTON:
             return 10.0
@@ -107,13 +119,13 @@ extension PostListVC: UITableViewDataSource, UITableViewDelegate {
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return viewModel.userPost.count * FeedRow.allCases.count
+        return viewModel.userPost.count * PostRow.allCases.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let section = FeedRow(rawValue: indexPath.section % FeedRow.allCases.count)
+        let section = PostRow(rawValue: indexPath.section % PostRow.allCases.count)
         switch section {
-        case .AVATAR:
+        case .TOP:
             return 50.0
         case .CAPTION:
             return UITableView.automaticDimension
@@ -130,11 +142,22 @@ extension PostListVC: UITableViewDataSource, UITableViewDelegate {
         return 1
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let section = FeedRow(rawValue: indexPath.section % FeedRow.allCases.count)
-        let userPost = viewModel.userPost[indexPath.section / FeedRow.allCases.count]
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let section = PostRow(rawValue: indexPath.section % PostRow.allCases.count)
+        let userPost = viewModel.userPost[indexPath.section / PostRow.allCases.count]
         switch section {
-        case .AVATAR:
+        case .PHOTO:
+            delegate?.didTapPhotoDetails(userPost)
+        default:
+            break
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let section = PostRow(rawValue: indexPath.section % PostRow.allCases.count)
+        let userPost = viewModel.userPost[indexPath.section / PostRow.allCases.count]
+        switch section {
+        case .TOP:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: PostTopCell.id, for: indexPath) as? PostTopCell else {
                 return UITableViewCell()
             }
@@ -164,7 +187,7 @@ extension PostListVC: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-extension PostListVC: ViewModelDelegate {
+extension PostListVC: PostListViewModelDelegate {
     func userPostUpdated() {
         mainQueue.async { [weak self] in
             self?.tableView.reloadData()

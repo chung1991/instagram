@@ -31,6 +31,8 @@ class CaptionCell: UITableViewCell {
     }
     
     func setupViews() {
+        selectionStyle = .none
+        
         captionLabel.numberOfLines = 3
         captionLabel.font = .systemFont(ofSize: 14, weight: .semibold)
         captionLabel.textAlignment = .left
@@ -49,5 +51,9 @@ class CaptionCell: UITableViewCell {
     
     func configure(_ userPost: UserPost) {
         captionLabel.text = userPost.caption
+    }
+    
+    func configure(_ photo: Photo) {
+        captionLabel.text = photo.caption
     }
 }

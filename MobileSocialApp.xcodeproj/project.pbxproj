@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		C6277D782869171E002951A7 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6277D772869171E002951A7 /* Coordinator.swift */; };
 		C6277D7A28691766002951A7 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6277D7928691766002951A7 /* MainCoordinator.swift */; };
+		C6277D7C28691E1D002951A7 /* PhotoListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6277D7B28691E1D002951A7 /* PhotoListVC.swift */; };
+		C6277D7F28692C91002951A7 /* CustomTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6277D7E28692C91002951A7 /* CustomTableView.swift */; };
+		C6277D8128693706002951A7 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6277D8028693706002951A7 /* CustomImageView.swift */; };
 		C65DE2592863E6A70093FF45 /* ThumbailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65DE2582863E6A70093FF45 /* ThumbailCell.swift */; };
 		C6DAFA94285FDEA90009129D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DAFA93285FDEA90009129D /* AppDelegate.swift */; };
 		C6DAFA98285FDEA90009129D /* PostListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DAFA97285FDEA90009129D /* PostListVC.swift */; };
@@ -47,6 +50,9 @@
 /* Begin PBXFileReference section */
 		C6277D772869171E002951A7 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		C6277D7928691766002951A7 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		C6277D7B28691E1D002951A7 /* PhotoListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoListVC.swift; sourceTree = "<group>"; };
+		C6277D7E28692C91002951A7 /* CustomTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableView.swift; sourceTree = "<group>"; };
+		C6277D8028693706002951A7 /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
 		C65DE2582863E6A70093FF45 /* ThumbailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbailCell.swift; sourceTree = "<group>"; };
 		C6DAFA90285FDEA90009129D /* MobileSocialApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobileSocialApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6DAFA93285FDEA90009129D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -97,7 +103,9 @@
 		C6277D752869167A002951A7 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				C6277D7B28691E1D002951A7 /* PhotoListVC.swift */,
 				C6DAFA97285FDEA90009129D /* PostListVC.swift */,
+				C6277D7D28692C6D002951A7 /* CustomView */,
 				C65DE2572863E6910093FF45 /* CustomCell */,
 			);
 			path = Presentation;
@@ -110,6 +118,15 @@
 				C6277D7928691766002951A7 /* MainCoordinator.swift */,
 			);
 			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		C6277D7D28692C6D002951A7 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				C6277D7E28692C91002951A7 /* CustomTableView.swift */,
+				C6277D8028693706002951A7 /* CustomImageView.swift */,
+			);
+			path = CustomView;
 			sourceTree = "<group>";
 		};
 		C65DE2572863E6910093FF45 /* CustomCell */ = {
@@ -329,10 +346,13 @@
 				C6DAFAC6285FE3890009129D /* DownloadService.swift in Sources */,
 				C6277D782869171E002951A7 /* Coordinator.swift in Sources */,
 				C6DAFA98285FDEA90009129D /* PostListVC.swift in Sources */,
+				C6277D7F28692C91002951A7 /* CustomTableView.swift in Sources */,
 				C6F732DD2865458000C52859 /* Models.swift in Sources */,
 				C6F732D3286530EC00C52859 /* PostTopCell.swift in Sources */,
 				C6DAFA94285FDEA90009129D /* AppDelegate.swift in Sources */,
+				C6277D8128693706002951A7 /* CustomImageView.swift in Sources */,
 				C6F732D128652FD100C52859 /* ClearFooter.swift in Sources */,
+				C6277D7C28691E1D002951A7 /* PhotoListVC.swift in Sources */,
 				C6F732D82865396200C52859 /* CaptionCell.swift in Sources */,
 				C6F732DA28653B8200C52859 /* ButtonCell.swift in Sources */,
 				C65DE2592863E6A70093FF45 /* ThumbailCell.swift in Sources */,

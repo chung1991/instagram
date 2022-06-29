@@ -47,6 +47,8 @@ class ButtonCell: UITableViewCell {
     }
     
     func setupViews() {
+        selectionStyle = .none
+        
         stackView.spacing = 1.0
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually

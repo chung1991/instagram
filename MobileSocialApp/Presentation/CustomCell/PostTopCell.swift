@@ -51,6 +51,8 @@ class PostTopCell: UITableViewCell {
     }
     
     func setupViews() {
+        selectionStyle = .none
+        
         avatarImageView.contentMode = .scaleAspectFit
         contentView.addSubview(avatarImageView)
         

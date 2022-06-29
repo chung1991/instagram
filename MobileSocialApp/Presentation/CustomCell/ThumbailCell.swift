@@ -30,24 +30,24 @@ class ThumbailCell: UITableViewCell {
         return UIStackView()
     }()
     
-    let imageView1: UIImageView = {
-        return UIImageView()
+    let imageView1: CustomImageView = {
+        return CustomImageView()
     }()
     
-    let imageView2: UIImageView = {
-        return UIImageView()
+    let imageView2: CustomImageView = {
+        return CustomImageView()
     }()
     
-    let imageView3: UIImageView = {
-        return UIImageView()
+    let imageView3: CustomImageView = {
+        return CustomImageView()
     }()
     
-    let imageView4: UIImageView = {
-        return UIImageView()
+    let imageView4: CustomImageView = {
+        return CustomImageView()
     }()
     
-    let imageView5: UIImageView = {
-        return UIImageView()
+    let imageView5: CustomImageView = {
+        return CustomImageView()
     }()
     
     var userPost: UserPost?
@@ -67,13 +67,20 @@ class ThumbailCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         imageView1.image = nil
+        imageView1.richTag = nil
         imageView2.image = nil
+        imageView2.richTag = nil
         imageView3.image = nil
+        imageView3.richTag = nil
         imageView4.image = nil
+        imageView4.richTag = nil
         imageView5.image = nil
+        imageView5.richTag = nil
     }
     
     func setupViews() {
+        selectionStyle = .none
+        
         stackView.spacing = 1.0
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
@@ -116,9 +123,23 @@ class ThumbailCell: UITableViewCell {
         ])
     }
     
+    func configure(_ photo: Photo) {
+        let availableViews = layoutForOnePhoto()
+        for (_, photoView) in availableViews.enumerated() {
+            photoView.richTag = "\(photo.id)"
+            viewModel.downloadImage(photo, { [weak self] image in
+                self?.mainQueue.async {
+                    if photoView.richTag == "\(photo.id)" {
+                        photoView.image = image
+                    }
+                }
+            })
+        }
+    }
+    
     func configure(_ userPost: UserPost) {
         self.userPost = userPost
-        var availableViews: [UIImageView] = []
+        var availableViews: [CustomImageView] = []
         switch userPost.photos.count {
         case 0: availableViews = layoutForZeroPhoto()
         case 1: availableViews = layoutForOnePhoto()
@@ -128,10 +149,10 @@ class ThumbailCell: UITableViewCell {
         default: availableViews = layoutForFivePhoto()
         }
         for (i, photoView) in availableViews.enumerated() {
-            photoView.tag = userPost.id
+            photoView.richTag = "\(userPost.id)"
             viewModel.downloadImage(userPost.photos[i], { [weak self] image in
                 self?.mainQueue.async {
-                    if photoView.tag == userPost.id {
+                    if photoView.richTag == "\(userPost.id)" {
                         photoView.image = image
                     }
                 }
@@ -140,7 +161,7 @@ class ThumbailCell: UITableViewCell {
         }
     }
     
-    func layoutForZeroPhoto() -> [UIImageView] {
+    func layoutForZeroPhoto() -> [CustomImageView] {
         stackView.isHidden = true
         stackView1.isHidden = true
         imageView1.isHidden = true
@@ -152,7 +173,7 @@ class ThumbailCell: UITableViewCell {
         return []
     }
     
-    func layoutForOnePhoto() -> [UIImageView] {
+    func layoutForOnePhoto() -> [CustomImageView] {
         stackView.isHidden = false
         stackView1.isHidden = false
         imageView1.isHidden = false
@@ -164,7 +185,7 @@ class ThumbailCell: UITableViewCell {
         return [imageView1]
     }
     
-    func layoutForTwoPhoto() -> [UIImageView] {
+    func layoutForTwoPhoto() -> [CustomImageView] {
         stackView.isHidden = false
         stackView1.isHidden = false
         imageView1.isHidden = false
@@ -176,7 +197,7 @@ class ThumbailCell: UITableViewCell {
         return [imageView1, imageView2]
     }
     
-    func layoutForThreePhoto() -> [UIImageView] {
+    func layoutForThreePhoto() -> [CustomImageView] {
         stackView.isHidden = false
         stackView1.isHidden = false
         imageView1.isHidden = false
@@ -188,7 +209,7 @@ class ThumbailCell: UITableViewCell {
         return [imageView1, imageView3, imageView4]
     }
     
-    func layoutForFourPhoto() -> [UIImageView] {
+    func layoutForFourPhoto() -> [CustomImageView] {
         stackView.isHidden = false
         stackView1.isHidden = false
         imageView1.isHidden = false
@@ -200,7 +221,7 @@ class ThumbailCell: UITableViewCell {
         return [imageView1, imageView3, imageView4, imageView5]
     }
     
-    func layoutForFivePhoto() -> [UIImageView] {
+    func layoutForFivePhoto() -> [CustomImageView] {
         stackView.isHidden = false
         stackView1.isHidden = false
         imageView1.isHidden = false

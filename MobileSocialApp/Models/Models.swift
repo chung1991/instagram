@@ -16,5 +16,7 @@ struct UserPost {
 }
 
 struct Photo {
+    let id: UUID
+    let caption: String
     let url: String
 }

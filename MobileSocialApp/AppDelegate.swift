@@ -15,7 +15,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
-        mainCoordinator = MainCoordinator(PostListVC())
+        
+        let postListVc = PostListVC()
+        let navigationController = UINavigationController(rootViewController: postListVc)
+        mainCoordinator = MainCoordinator(navigationController)
+        postListVc.delegate = mainCoordinator as? PostListVCDelegate
+        
         window?.rootViewController = mainCoordinator.rootViewController
         window?.makeKeyAndVisible()
         return true

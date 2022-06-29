@@ -14,4 +14,19 @@ class MainCoordinator: Coordinator {
     init(_ rootViewController: UIViewController) {
         self.rootViewController = rootViewController
     }
+    
+    func pushViewController(_ vc: UIViewController) {
+        guard let navigationController = rootViewController as? UINavigationController else {
+            return
+        }
+        navigationController.pushViewController(vc, animated: true)
+    }
+}
+
+extension MainCoordinator: PostListVCDelegate {
+    func didTapPhotoDetails(_ userPost: UserPost) {
+        let photoListVc = PhotoListVC()
+        photoListVc.configure(userPost)
+        pushViewController(photoListVc)
+    }
 }
